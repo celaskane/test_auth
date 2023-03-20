@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from './user.entity';
 
 @Injectable()
@@ -22,5 +23,14 @@ export class UsersService {
       return null;
     }
     return await this.repo.findOneBy({ id });
+  }
+
+  async update(id: number, data: UpdateUserDto) {
+    if (!id) {
+      return null;
+    }
+    const user = await this.findOne(id);
+    this.repo.merge(user, data);
+    return await this.repo.save(user);
   }
 }
