@@ -12,4 +12,8 @@ export class UsersService {
     const user = this.repo.create(data);
     return await this.repo.save(user);
   }
+
+  async findAll() {
+    return this.repo.find({ select: ['email'] });
+  }
 }
