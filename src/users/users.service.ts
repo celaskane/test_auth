@@ -14,6 +14,13 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.repo.find({ select: ['email'] });
+    return this.repo.find({ select: ['id', 'email'] });
+  }
+
+  async findOne(id: number) {
+    if (!id) {
+      return null;
+    }
+    return await this.repo.findOneBy({ id });
   }
 }
