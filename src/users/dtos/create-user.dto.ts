@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 import { RegExHelper } from '../../helpers/regex.helper';
+import { PartialType } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -13,3 +14,5 @@ export class CreateUserDto {
   })
   password: string;
 }
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
